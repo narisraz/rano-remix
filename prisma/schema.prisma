@@ -1,0 +1,145 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id    String @id @default(cuid())
+  email String @unique
+  role  Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  password Password?
+  client   Client    @relation(fields: [clientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  clientId String
+}
+
+model Password {
+  hash String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String @unique
+}
+
+model Address {
+  id        String    @id @default(cuid())
+  region    String?
+  commune   String?
+  fokontany String?
+  lot       String?
+  gps       String?
+  Client    Client[]
+  Site      Site[]
+  Abonnee   Abonnee[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Client {
+  id         String   @id @default(cuid())
+  name       String
+  stat       String
+  nif        String
+  email      String
+  telephones String?
+  address    Address? @relation(fields: [addressId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  addressId  String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  User      User[]
+  Site      Site[]
+  Pricing   Pricing[]
+}
+
+model Site {
+  id         String  @id @default(cuid())
+  name       String
+  telephones String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  client      Client     @relation(fields: [clientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  clientId    String
+  address     Address    @relation(fields: [addressId], references: [id])
+  addressId   String
+  Pricing     Pricing[]
+  Abonnee     Abonnee[]
+  Reservoir   Reservoir? @relation(fields: [reservoirId], references: [id])
+  reservoirId String?
+}
+
+model Abonnee {
+  id           String   @id @default(cuid())
+  name         String
+  firstName    String?
+  contractDate DateTime
+  telephones   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  site           Site             @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  siteId         String
+  address        Address          @relation(fields: [addressId], references: [id])
+  addressId      String
+  abonneeType    AbonneeType      @relation(fields: [abonneeTypeId], references: [id])
+  abonneeTypeId  String
+  AbonneeAccount AbonneeAccount[]
+  Consommation   Consommation[]
+}
+
+model AbonneeType {
+  id      String    @id @default(cuid())
+  label   String
+  Abonnee Abonnee[]
+}
+
+model AbonneeAccount {
+  id      String @id @default(cuid())
+  balance Float
+
+  abonnee   Abonnee @relation(fields: [abonneeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  abonneeId String
+}
+
+model Pricing {
+  id        String @id @default(cuid())
+  minVolume Int    @default(0)
+  maxVolume Int?
+  price     Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  site     Site   @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  siteId   String
+  client   Client @relation(fields: [clientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  clientId String
+}
+
+model Reservoir {
+  id     String @id @default(cuid())
+  volume String
+
+  sites Site[]
+}
+
+model Consommation {
+  id               String   @id @default(cuid())
+  volume           Float    @default(0)
+  lastConsommation Float    @default(0)
+  isBilled         Boolean  @default(false)
+  statementDate    DateTime
+
+  abonnee   Abonnee @relation(fields: [abonneeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  abonneeId String
+}
