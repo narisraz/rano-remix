@@ -41,6 +41,10 @@ export const AdminLayout = () => {
       label: 'Tableau de bord',
       icon: <DashboardIcon />
     }, {
+      url: '/admin/clients',
+      label: 'Clients',
+      icon: <DashboardIcon />
+    }, {
       url: '/admin/client/encaissement',
       label: 'Encaissement',
       icon: <DashboardIcon />

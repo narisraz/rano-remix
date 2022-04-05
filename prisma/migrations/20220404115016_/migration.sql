@@ -1,6 +1,9 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "active" BOOLEAN NOT NULL DEFAULT false,
     "email" TEXT NOT NULL,
     "role" INTEGER NOT NULL DEFAULT 0,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
