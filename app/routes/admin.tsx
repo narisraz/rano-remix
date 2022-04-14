@@ -67,7 +67,7 @@ export const AdminLayout = () => {
             <Divider />
             <List>
               {menu.map((item, index) =>
-                <ListItemButton key={index} component="a" href={item.url} selected={location.pathname == item.url}>
+                <ListItemButton key={index} component="a" href={item.url} selected={location.pathname.startsWith(item.url)}>
                   <ListItemIcon>
                     {item.icon}
                   </ListItemIcon>
