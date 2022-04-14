@@ -27,8 +27,8 @@ export default function UserList({ clientId, users, roles }: UserListProps) {
 
   return (
     <Table size="small" sx={{ width: "100%" }}>
-      <DeleteConfirmDialog title={'Employé'} open={openDialog} close={closeDialog} action={"/admin/users/delete"}>
-        <input type={"hidden"} name={"id"} value={selectedUser?.id} />
+      <DeleteConfirmDialog title={'Employé'} open={openDialog} close={closeDialog} action={`/admin/clients/${clientId}/users/delete`}>
+        <input type={"hidden"} name={"email"} value={selectedUser?.email} />
       </DeleteConfirmDialog>
       <TableHead>
         <StyledTableRow>

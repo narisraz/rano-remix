@@ -17,7 +17,7 @@ export function DeleteConfirmDialog({ title, open, close, action, children }: De
       open={open}
       onClose={() => close()}
     >
-      <Form action={action}>
+      <Form action={action} method="post">
         <DialogTitle>
           {title}
         </DialogTitle>
@@ -28,7 +28,7 @@ export function DeleteConfirmDialog({ title, open, close, action, children }: De
           </DialogContentText>
         </DialogContent>
         <Button onClick={() => close()}>Annuler</Button>
-        <Button type="submit">
+        <Button type="submit" onClick={() => close()}>
           Oui
         </Button>
       </Form>
