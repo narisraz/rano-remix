@@ -4,11 +4,14 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL DEFAULT false,
+    "telephones" TEXT,
     "email" TEXT NOT NULL,
     "role" INTEGER NOT NULL DEFAULT 0,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
     "clientId" TEXT NOT NULL,
+    "addressId" TEXT,
+    CONSTRAINT "User_addressId_fkey" FOREIGN KEY ("addressId") REFERENCES "Address" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "User_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 

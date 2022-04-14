@@ -1,7 +1,8 @@
-import type { Client, Password, User } from "@prisma/client";
+import { Client, Password, Prisma, User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "~/db.server";
+import { addAddress } from "./address.server";
 
 export type { User } from "@prisma/client";
 
@@ -36,23 +37,61 @@ export async function getUsersByClientId(clientId: Client["id"]) {
   return prisma.user.findMany({ where: { clientId } })
 }
 
-export async function createUser(email: User["email"], name: User["name"], firstName: User["firstName"], active: User["active"], password: string, clientId: string) {
+export async function createUser(
+  email: User["email"],
+  name: User["name"],
+  firstName: User["firstName"],
+  active: User["active"],
+  password: string,
+  clientId: string,
+  role: number,
+  telephones: string,
+  region: string,
+  commune: string,
+  fokontany: string,
+  lot: string
+): Promise<{
+  user?: User,
+  error?: string
+}> {
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  return prisma.user.create({
-    data: {
-      name,
-      firstName,
-      email,
-      password: {
-        create: {
-          hash: hashedPassword,
+  const address = await addAddress(
+    region,
+    commune,
+    fokontany,
+    lot,
+  )
+
+  try {
+    const user = await prisma.user.create({
+      data: {
+        name,
+        firstName,
+        email,
+        password: {
+          create: {
+            hash: hashedPassword,
+          },
         },
+        clientId,
+        active,
+        role,
+        telephones,
+        addressId: address.id
       },
-      clientId,
-      active
-    },
-  });
+    });
+    return { user }
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      if (e.code === 'P2002') {
+        return {
+          error: 'Email correspond déjà à un compte existant'
+        }
+      }
+    }
+    throw e
+  }
 }
 
 export async function deleteUserByEmail(email: User["email"]) {

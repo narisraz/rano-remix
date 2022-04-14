@@ -6,11 +6,10 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IconButton, Table, TableBody, TableHead } from "@mui/material";
 import { User } from "@prisma/client";
 import { useState } from "react";
-import { LoaderFunction, useLoaderData } from "remix";
 import { DeleteConfirmDialog } from "~/core/components/DeleteConfirmDialog";
 import { StyledTableCell } from "~/core/components/StyledTableCell";
 import { StyledTableRow } from "~/core/components/StyledTableRow";
-import { Role, roles } from "~/models/user.server";
+import { Role } from "~/models/user.server";
 
 interface UserListProps {
   clientId: string
@@ -52,10 +51,10 @@ export default function UserList({ clientId, users, roles }: UserListProps) {
             <StyledTableCell>{user.email}</StyledTableCell>
             <StyledTableCell>{user.active ? <CheckIcon color={"success"} /> : <CloseIcon color={"error"} />}</StyledTableCell>
             <StyledTableCell align="center">
-              <IconButton color={"success"} href={`/admin/client/${clientId}/user/${user.id}`}>
+              <IconButton color={"success"} href={`/admin/clients/${clientId}/user/${user.id}`}>
                 <VisibilityIcon />
               </IconButton>
-              <IconButton color={"warning"} href={`/admin/client/${clientId}/user/edit/${user.id}`}>
+              <IconButton color={"warning"} href={`/admin/clients/${clientId}/user/edit/${user.id}`}>
                 <ModeEditIcon />
               </IconButton>
               <IconButton color={"error"} onClick={() => {

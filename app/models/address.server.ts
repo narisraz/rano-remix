@@ -5,3 +5,19 @@ export async function getAddressById(id: string) {
     where: { id }
   })
 }
+
+export async function addAddress(
+  region: string,
+  commune: string,
+  fokontany: string,
+  lot: string
+) {
+  return prisma.address.create({
+    data: {
+      region,
+      commune,
+      fokontany,
+      lot
+    }
+  })
+}

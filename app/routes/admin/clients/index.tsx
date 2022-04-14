@@ -14,7 +14,7 @@ import { StyledTableRow } from "~/core/components/StyledTableRow";
 import { getAddressById } from '~/models/address.server';
 import { getAllClients } from '~/models/client.server';
 import { getUsersByClientId, Role, roles } from '~/models/user.server';
-import UserList from '~/user/UserList';
+import UserList from '~/user/components/UserList';
 
 
 interface ClientData extends Client {
@@ -104,10 +104,10 @@ function Row(props: { client: ClientData }) {
       <StyledTableCell align="right">{client.email}</StyledTableCell>
       <StyledTableCell align="right">{client.address?.commune}</StyledTableCell>
       <StyledTableCell align="center">
-        <IconButton color={"success"} href={`/admin/client/${client.id}`}>
+        <IconButton color={"success"} href={`/admin/clients/${client.id}`}>
           <VisibilityIcon />
         </IconButton>
-        <IconButton color={"warning"} href={`/admin/client/edit/${client.id}`}>
+        <IconButton color={"warning"} href={`/admin/clients/edit/${client.id}`}>
           <ModeEditIcon />
         </IconButton>
         <IconButton color={"error"} onClick={() => {
@@ -140,7 +140,7 @@ function UserTable(props: { client: ClientData }) {
           : `Pas encore d'employé pour ${client.name}`
         }
       </Typography>
-      <Button href={`/admin/client/${client.id}/user/new`} startIcon={<AddIcon />} variant={"text"}>
+      <Button href={`/admin/clients/${client.id}/users/add`} startIcon={<AddIcon />} variant={"text"}>
         Nouvel employé
       </Button>
     </Box>
