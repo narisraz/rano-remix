@@ -7,7 +7,7 @@ export const name = z.string()
 
 export const firstName = z.string()
 
-export const tel = z.string().optional()
+export const telephones = z.string().optional()
 export const role = z.string()
 
 export const email = z
@@ -40,7 +40,7 @@ export const CreateUserValidator = withZod(
     commune,
     fokontany,
     lot,
-    tel,
+    telephones,
     email,
     password,
     passwordConfirmation: z.string(),
@@ -50,6 +50,18 @@ export const CreateUserValidator = withZod(
       message: passwordNotMatchMessage,
       path: ["passwordConfirmation"],
     }))
+
+export const UpdateUserValidator = withZod(
+  z.object({
+    name,
+    firstName,
+    telephones,
+    region,
+    commune,
+    fokontany,
+    lot,
+    role
+  }))
 
 export const ResetPasswordValidator = z
   .object({

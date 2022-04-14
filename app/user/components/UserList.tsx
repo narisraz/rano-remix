@@ -51,10 +51,10 @@ export default function UserList({ clientId, users, roles }: UserListProps) {
             <StyledTableCell>{user.email}</StyledTableCell>
             <StyledTableCell>{user.active ? <CheckIcon color={"success"} /> : <CloseIcon color={"error"} />}</StyledTableCell>
             <StyledTableCell align="center">
-              <IconButton color={"success"} href={`/admin/clients/${clientId}/user/${user.id}`}>
+              <IconButton color={"success"} href={`/admin/clients/${clientId}/users/${user.id}`}>
                 <VisibilityIcon />
               </IconButton>
-              <IconButton color={"warning"} href={`/admin/clients/${clientId}/user/edit/${user.id}`}>
+              <IconButton color={"warning"} href={`/admin/clients/${clientId}/users/${user.id}/update`}>
                 <ModeEditIcon />
               </IconButton>
               <IconButton color={"error"} onClick={() => {

@@ -1,8 +1,8 @@
-import { Client, Password, Prisma, User } from "@prisma/client";
+import { Address, Client, Password, Prisma, User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "~/db.server";
-import { addAddress } from "./address.server";
+import { addAddress, updateAddress } from "./address.server";
 
 export type { User } from "@prisma/client";
 
@@ -35,6 +35,56 @@ export async function getUserByEmail(email: User["email"]) {
 
 export async function getUsersByClientId(clientId: Client["id"]) {
   return prisma.user.findMany({ where: { clientId } })
+}
+
+export async function updateUser(
+  id: User["id"],
+  name: User["name"],
+  firstName: User["firstName"],
+  active: User["active"],
+  role: User["role"],
+  telephones: User["telephones"],
+  region: Address["region"],
+  commune: Address["commune"],
+  fokontany: Address["fokontany"],
+  lot: Address["lot"]
+): Promise<{
+  user?: User,
+  error?: string
+}> {
+
+  const oldUserValue = await getUserById(id)
+
+  let address = undefined
+  if (oldUserValue?.addressId) {
+    address = await updateAddress(
+      oldUserValue?.addressId,
+      region,
+      commune,
+      fokontany,
+      lot,
+    )
+  }
+
+  try {
+    const user = await prisma.user.update({
+      where: { id },
+      data: {
+        name,
+        firstName,
+        active,
+        role,
+        telephones,
+        addressId: address?.id
+      },
+    });
+    return { user }
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      console.error(e.code)
+    }
+    throw e
+  }
 }
 
 export async function createUser(

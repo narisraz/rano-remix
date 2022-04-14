@@ -1,20 +1,21 @@
 import {
   Alert,
-  Button, FormControlLabel,
-  FormGroup, Switch
+  Button
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { Address, Client, User } from "@prisma/client";
-import React, { useState } from "react";
+import React from "react";
 import { ValidatedForm, Validator } from "remix-validated-form";
 import { LabeledSelectField } from "~/core/components/LabeledSelectField";
+import LabeledSwitch from "~/core/components/LabeledSwitch";
 import LabeledTextField from "~/core/components/LabeledTextField";
 import { StyledFieldset } from "~/core/components/StyledFieldset";
 import { Role } from "~/models/user.server";
 import { AddUserActionData } from "~/routes/admin/clients/$clientId/users/add";
 
 export interface UserFormProps {
+  children?: JSX.Element
   client: Client
   user?: User
   address?: Address
@@ -24,8 +25,7 @@ export interface UserFormProps {
   actionData?: AddUserActionData
 }
 
-export function UserForm({ client, user, validator, address, roles, action, actionData }: UserFormProps) {
-  const [showPassword, setShowPassword] = useState(false)
+export function UserForm({ children, client, user, validator, address, roles, action, actionData }: UserFormProps) {
 
   return (
     <Box>
@@ -55,14 +55,7 @@ export function UserForm({ client, user, validator, address, roles, action, acti
             {actionData.errors.email}
           </Alert>
         </Box>}
-        <Box sx={{ mb: 2 }}>
-          <StyledFieldset>
-            <legend>Authentification : </legend>
-            <LabeledTextField name="email" label="Email" placeholder="Email" />
-            <LabeledTextField name="password" label="Mot de passe" placeholder="Mot de passe" type="password" />
-            <LabeledTextField name="passwordConfirmation" label="Confirmer le mot de passe" placeholder="Confirmer le mot de passe" type="password" />
-          </StyledFieldset>
-        </Box>
+        {children}
         <Box sx={{ mb: 2 }}>
           <StyledFieldset>
             <legend>Informations personnels : </legend>
@@ -84,9 +77,7 @@ export function UserForm({ client, user, validator, address, roles, action, acti
           <LabeledSelectField label="Rôle" name="role" items={roles.map(role => ({ id: String(role.id), label: role.label }))} initialValue={`${user?.role ?? 0}`} />
         </Box>
         <Box sx={{ mb: 2 }}>
-          <FormGroup>
-            <FormControlLabel control={<Switch name={"active"} />} label="Active" />
-          </FormGroup>
+          <LabeledSwitch label="Active" initialValue={user?.active ?? false} name="active" />
         </Box>
         <Button variant={"contained"} type={"submit"}>Sauvegarder</Button>
       </ValidatedForm>
