@@ -7,7 +7,7 @@ import { UpdateUserValidator } from "~/core/validation";
 import { getAddressById } from "~/models/address.server";
 import { getClientById } from "~/models/client.server";
 import { getUserById, Role, roles, updateUser } from "~/models/user.server";
-import { UserForm } from "~/user/components/UserForm";
+import { UserActionData, UserForm } from "~/user/components/UserForm";
 import { pageNotFound } from "~/utils";
 
 
@@ -35,7 +35,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       const result = await updateUser(userId, name, firstName, Boolean(active), role, telephones, region, commune, fokontany, lot)
 
       if (result.error) {
-        return json<UpdateUserActionData>(
+        return json<UserActionData>(
           {
             errors: { email: result.error }
           },
@@ -71,12 +71,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
 };
 
-export interface UpdateUserActionData {
-  errors?: {
-    email?: string;
-  };
-}
-
 interface LoaderData {
   roles: Role[],
   client: Client,
@@ -89,11 +83,11 @@ interface LoaderData {
 }
 
 export function UpdateUserPage() {
-  const actionData = useActionData() as UpdateUserActionData;
+  const actionData = useActionData() as UserActionData;
   const { roles, client, user, address } = useLoaderData() as LoaderData
 
   return (
-    <UserForm roles={roles} client={client} action={`/admin/clients/${client.id}/users/${user.id}/update`} validator={UpdateUserValidator} actionData={actionData} user={user} address={address} >
+    <UserForm title="Modification employé" roles={roles} client={client} action={`/admin/clients/${client.id}/users/${user.id}/update`} validator={UpdateUserValidator} actionData={actionData} user={user} address={address} >
       <Box sx={{ mb: 2 }}>
         <StyledFieldset>
           <legend>Authentification : </legend>

@@ -12,24 +12,31 @@ import LabeledSwitch from "~/core/components/LabeledSwitch";
 import LabeledTextField from "~/core/components/LabeledTextField";
 import { StyledFieldset } from "~/core/components/StyledFieldset";
 import { Role } from "~/models/user.server";
-import { AddUserActionData } from "~/routes/admin/clients/$clientId/users/add";
+
 
 export interface UserFormProps {
   children?: JSX.Element
+  title: string
   client: Client
   user?: User
   address?: Address
   roles: Role[]
   action: string
   validator: Validator<{ [x: string]: any; }>
-  actionData?: AddUserActionData
+  actionData?: UserActionData
 }
 
-export function UserForm({ children, client, user, validator, address, roles, action, actionData }: UserFormProps) {
+export interface UserActionData {
+  errors?: {
+    email?: string;
+  };
+}
+
+export function UserForm({ children, title, client, user, validator, address, roles, action, actionData }: UserFormProps) {
 
   return (
     <Box>
-      <h3>{client.name} - Nouvel employé</h3>
+      <h3>{client.name} - {title}</h3>
       <Divider sx={{ mb: 2 }} />
       <ValidatedForm
         method="post"

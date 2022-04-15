@@ -7,7 +7,7 @@ import { StyledFieldset } from "~/core/components/StyledFieldset";
 import { CreateUserValidator } from "~/core/validation";
 import { getClientById } from "~/models/client.server";
 import { createUser, Role, roles } from "~/models/user.server";
-import { UserForm } from "~/user/components/UserForm";
+import { UserActionData, UserForm } from "~/user/components/UserForm";
 import { pageNotFound } from "~/utils";
 
 
@@ -36,7 +36,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       const result = await createUser(email, name, firstName, Boolean(active), password, clientId, role, telephones, region, commune, fokontany, lot)
 
       if (result.error) {
-        return json<AddUserActionData>(
+        return json<UserActionData>(
           {
             errors: { email: result.error }
           },
@@ -65,12 +65,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
 };
 
-export interface AddUserActionData {
-  errors?: {
-    email?: string;
-  };
-}
-
 interface LoaderData {
   roles: Role[],
   client: Client,
@@ -81,11 +75,11 @@ interface LoaderData {
 }
 
 export function AddUserPage() {
-  const actionData = useActionData() as AddUserActionData;
+  const actionData = useActionData() as UserActionData;
   const { roles, client } = useLoaderData() as LoaderData
 
   return (
-    <UserForm roles={roles} client={client} action={`/admin/clients/${client.id}/users/add`} validator={CreateUserValidator} actionData={actionData} >
+    <UserForm title="Nouvel employé" roles={roles} client={client} action={`/admin/clients/${client.id}/users/add`} validator={CreateUserValidator} actionData={actionData} >
       <Box sx={{ mb: 2 }}>
         <StyledFieldset>
           <legend>Authentification : </legend>

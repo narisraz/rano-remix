@@ -15,6 +15,9 @@ export const email = z
   .email("Email invalide")
   .transform((str) => str.toLowerCase().trim())
 
+export const nif = z.string()
+export const stat = z.string()
+
 export const region = z.string().optional()
 export const commune = z.string().optional()
 export const fokontany = z.string().optional()
@@ -31,6 +34,20 @@ export const LoginValidator = withZod(
     email,
     password
   }))
+
+export const ClientValidator = withZod(
+  z.object({
+    name,
+    email,
+    telephones,
+    nif,
+    stat,
+    region,
+    commune,
+    fokontany,
+    lot
+  })
+)
 
 export const CreateUserValidator = withZod(
   z.object({

@@ -53,7 +53,7 @@ export default function ClientList() {
         <Typography variant="h5" gutterBottom>
           Liste des clients ({clients.length})
         </Typography>
-        <Button href={"/admin/client/new"} startIcon={<AddIcon />} variant={"contained"}>
+        <Button href={"/admin/clients/add"} startIcon={<AddIcon />} variant={"contained"}>
           Nouveau client
         </Button>
       </Box>
@@ -107,7 +107,7 @@ function Row(props: { client: ClientData }) {
         <IconButton color={"success"} href={`/admin/clients/${client.id}`}>
           <VisibilityIcon />
         </IconButton>
-        <IconButton color={"warning"} href={`/admin/clients/edit/${client.id}`}>
+        <IconButton color={"warning"} href={`/admin/clients/${client.id}/update`}>
           <ModeEditIcon />
         </IconButton>
         <IconButton color={"error"} onClick={() => {
