@@ -21,17 +21,10 @@ interface MenuItem {
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
 
-  if (userId) {
-    const user = await getUserById(userId)
-    if (user && user?.role >= 0) {
-      return redirect("/")
-    }
-  }
-
   return userId != undefined
 };
 
-export const AdminLayout = () => {
+export const ClientLayout = () => {
   const isConnected = useLoaderData()
   const location = useLocation()
   const [open, setOpen] = useState(true);
@@ -46,12 +39,20 @@ export const AdminLayout = () => {
 
   const menu: MenuItem[] = [
     {
-      url: '/admin/dashboard',
+      url: '/client/dashboard',
       label: 'Tableau de bord',
       icon: <DashboardIcon />
     }, {
-      url: '/admin/clients',
-      label: 'Clients',
+      url: '/client/utilisateurs',
+      label: 'Utilisateurs',
+      icon: <DashboardIcon />
+    }, {
+      url: '/client/releve',
+      label: 'Relevé',
+      icon: <DashboardIcon />
+    }, {
+      url: '/client/caisse',
+      label: 'Encaissement',
       icon: <DashboardIcon />
     }
   ]
@@ -94,4 +95,4 @@ export const AdminLayout = () => {
   )
 }
 
-export default AdminLayout
+export default ClientLayout

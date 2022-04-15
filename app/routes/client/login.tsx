@@ -36,7 +36,7 @@ export const action: ActionFunction = async ({ request }) => {
     request,
     userId: user.id,
     remember: remember === "on" ? true : false,
-    redirectTo: typeof redirectTo === "string" ? redirectTo : "/client/dashboard",
+    redirectTo: typeof redirectTo === "string" ? redirectTo : "/",
   });
 }
 
@@ -55,7 +55,7 @@ export const meta: MetaFunction = () => {
 export default function Login() {
   const actionData = useActionData() as LoginActionData;
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") || "/admin/dashboard";
+  const redirectTo = searchParams.get("redirectTo") || "/";
 
   return (
     <LoginForm actionData={actionData} redirectTo={redirectTo} />
