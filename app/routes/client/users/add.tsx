@@ -44,7 +44,7 @@ export const action: ActionFunction = async ({ request, params }) => {
           { status: 400 }
         );
       }
-      return redirect(`/client/utilisateurs`)
+      return redirect(`/client/users`)
     }
 
   }

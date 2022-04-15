@@ -43,7 +43,7 @@ export const ClientLayout = () => {
       label: 'Tableau de bord',
       icon: <DashboardIcon />
     }, {
-      url: '/client/utilisateurs',
+      url: '/client/users',
       label: 'Utilisateurs',
       icon: <DashboardIcon />
     }, {
