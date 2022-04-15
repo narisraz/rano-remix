@@ -47,6 +47,10 @@ export const ClientLayout = () => {
       label: 'Utilisateurs',
       icon: <DashboardIcon />
     }, {
+      url: '/client/sites',
+      label: 'Sites',
+      icon: <DashboardIcon />
+    }, {
       url: '/client/releve',
       label: 'Relevé',
       icon: <DashboardIcon />

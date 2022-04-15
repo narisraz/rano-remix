@@ -1,9 +1,15 @@
-import { Address } from "@prisma/client";
+import { Address, Client } from "@prisma/client";
 import { prisma } from "~/db.server";
 
 export async function getAddressById(id: string) {
   return prisma.address.findFirst({
     where: { id }
+  })
+}
+
+export async function getAddressesByClient(clientId: Client["id"]) {
+  return prisma.address.findMany({
+    where: {  }
   })
 }
 

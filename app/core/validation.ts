@@ -49,6 +49,13 @@ export const ClientValidator = withZod(
   })
 )
 
+export const SiteValidator = withZod(
+  z.object({
+    name,
+    telephones
+  })
+)
+
 export const CreateUserValidator = withZod(
   z.object({
     name,
