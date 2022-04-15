@@ -47,7 +47,7 @@ export default function UsersPage() {
           Nouvel employé
         </Button>
       </Box>
-      <UserList clientId={clientId} roles={roles} users={users} />
+      <UserList clientId={clientId} roles={roles} users={users} baseUrl="/client" />
     </>
   )
 }

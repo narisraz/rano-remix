@@ -145,7 +145,7 @@ function UserTable(props: { client: ClientData }) {
       </Button>
     </Box>
     {client.users.length > 0 &&
-      <UserList clientId={client.id} users={client.users} roles={client.roles} />
+      <UserList clientId={client.id} users={client.users} roles={client.roles} baseUrl={`/admin/clients/${client.id}`} />
     }
   </Box>;
 }

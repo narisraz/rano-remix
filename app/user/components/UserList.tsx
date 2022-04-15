@@ -12,12 +12,13 @@ import { StyledTableRow } from "~/core/components/StyledTableRow";
 import { Role } from "~/models/user.server";
 
 interface UserListProps {
+  baseUrl: string
   clientId: string
   users: User[]
   roles: Role[]
 }
 
-export default function UserList({ clientId, users, roles }: UserListProps) {
+export default function UserList({ clientId, users, roles, baseUrl }: UserListProps) {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User>()
 
@@ -27,7 +28,7 @@ export default function UserList({ clientId, users, roles }: UserListProps) {
 
   return (
     <Table size="small" sx={{ width: "100%" }}>
-      <DeleteConfirmDialog title={'Employé'} open={openDialog} close={closeDialog} action={`/admin/clients/${clientId}/users/delete`}>
+      <DeleteConfirmDialog title={'Employé'} open={openDialog} close={closeDialog} action={`${baseUrl}/users/delete`}>
         <input type={"hidden"} name={"email"} value={selectedUser?.email} />
       </DeleteConfirmDialog>
       <TableHead>
@@ -51,10 +52,10 @@ export default function UserList({ clientId, users, roles }: UserListProps) {
             <StyledTableCell>{user.email}</StyledTableCell>
             <StyledTableCell>{user.active ? <CheckIcon color={"success"} /> : <CloseIcon color={"error"} />}</StyledTableCell>
             <StyledTableCell align="center">
-              <IconButton color={"success"} href={`/admin/clients/${clientId}/users/${user.id}`}>
+              <IconButton color={"success"} href={`${baseUrl}/users/${user.id}`}>
                 <VisibilityIcon />
               </IconButton>
-              <IconButton color={"warning"} href={`/admin/clients/${clientId}/users/${user.id}/update`}>
+              <IconButton color={"warning"} href={`${baseUrl}/users/${user.id}/update`}>
                 <ModeEditIcon />
               </IconButton>
               <IconButton color={"error"} onClick={() => {
