@@ -3,11 +3,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Box, Divider, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React, { useState } from "react";
-import { LoaderFunction, Outlet, useLoaderData, useLocation } from "remix";
+import { LoaderFunction, Outlet, redirect, useLoaderData, useLocation } from "remix";
 import theme from 'src/theme';
 import { AppBar } from '~/core/components/AppBar';
 import { AppDrawer, DrawerHeader } from '~/core/components/AppDrawer';
 import AppToolbar from '~/core/components/AppToolbar';
+import { getUserById } from '~/models/user.server';
 import { getUserId } from "~/session.server";
 
 
@@ -19,6 +20,14 @@ interface MenuItem {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
+
+  if (userId) {
+    const user = await getUserById(userId)
+    if (user && user?.role >= 0) {
+      return redirect("/")
+    }
+  }
+
   return userId != undefined
 };
 
