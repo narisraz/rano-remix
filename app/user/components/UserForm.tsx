@@ -37,7 +37,7 @@ export function UserForm({ children, title, client, user, validator, address, ro
   return (
     <Box>
       <h3>{client.name} - {title}</h3>
-      <Divider sx={{ mb: 2 }} />
+      <Divider />
       <ValidatedForm
         method="post"
         action={action}

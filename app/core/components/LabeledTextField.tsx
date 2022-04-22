@@ -6,10 +6,11 @@ import { useField } from "remix-validated-form";
 
 interface LabeledTextFieldProps extends BaseTextFieldProps {
   margin?: InputBaseProps["margin"]
+  unitLabel?: string
   outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
 }
 
-export const LabeledTextField = ({ margin, outerProps, name, type, fullWidth, variant, label }: LabeledTextFieldProps) => {
+export const LabeledTextField = ({ margin, unitLabel, outerProps, name, type, fullWidth, variant, label }: LabeledTextFieldProps) => {
   const { error, getInputProps } = useField(name!);
   const [inputType, setInputType] = useState(type)
 
@@ -38,7 +39,7 @@ export const LabeledTextField = ({ margin, outerProps, name, type, fullWidth, va
                 </InputAdornment>
               ),
             }
-            : {}
+            : type == "unit" ? { endAdornment: (<InputAdornment position="end">{unitLabel}</InputAdornment>) } : {}
         }
         {...getInputProps({ id: name })}
       />

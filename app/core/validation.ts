@@ -52,7 +52,20 @@ export const ClientValidator = withZod(
 export const SiteValidator = withZod(
   z.object({
     name,
-    telephones
+    telephones,
+    region,
+    commune,
+    fokontany,
+    lot
+  })
+)
+
+export const ReservoirValidator = withZod(
+  z.object({
+    label: z.string(),
+    region,
+    commune,
+    fokontany
   })
 )
 

@@ -9,16 +9,16 @@ export async function getAddressById(id: string) {
 
 export async function getAddressesByClient(clientId: Client["id"]) {
   return prisma.address.findMany({
-    where: {  }
+    where: {}
   })
 }
 
 export async function updateAddress(
   id: Address["id"],
-  region: Address["region"],
-  commune: Address["commune"],
-  fokontany: Address["fokontany"],
-  lot: Address["lot"]
+  region?: Address["region"],
+  commune?: Address["commune"],
+  fokontany?: Address["fokontany"],
+  lot?: Address["lot"]
 ) {
   return prisma.address.update({
     where: { id },
@@ -32,10 +32,10 @@ export async function updateAddress(
 }
 
 export async function addAddress(
-  region: string,
-  commune: string,
-  fokontany: string,
-  lot: string
+  region?: string,
+  commune?: string,
+  fokontany?: string,
+  lot?: string
 ) {
   return prisma.address.create({
     data: {

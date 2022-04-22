@@ -24,7 +24,7 @@ export const ClientForm = ({ children, title, client, address, action, validator
   return (
     <Box>
       <h3>{title}</h3>
-      <Divider sx={{ mb: 2 }} />
+      <Divider />
       <ValidatedForm
         method="post"
         action={action}

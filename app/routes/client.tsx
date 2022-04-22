@@ -47,6 +47,10 @@ export const ClientLayout = () => {
       label: 'Utilisateurs',
       icon: <DashboardIcon />
     }, {
+      url: '/client/reservoirs',
+      label: 'Réservoirs',
+      icon: <DashboardIcon />
+    }, {
       url: '/client/sites',
       label: 'Sites',
       icon: <DashboardIcon />
