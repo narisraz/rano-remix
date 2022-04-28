@@ -1,8 +1,14 @@
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import PeopleIcon from '@mui/icons-material/People';
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import WaterIcon from '@mui/icons-material/Water';
 import { Box, Collapse, Divider, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { Site, User } from '@prisma/client';
 import React, { useEffect, useState } from "react";
@@ -91,28 +97,33 @@ export const ClientLayout = () => {
       icon: <DashboardIcon />
     }, {
       label: 'Administration',
-      icon: <DashboardIcon />,
+      icon: <AdminPanelSettingsIcon />,
       children: [
         {
           url: '/client/users',
           label: 'Utilisateurs',
-          icon: <DashboardIcon />,
+          icon: <PeopleIcon />,
           isChild: true
         }, {
           url: '/client/sites',
           label: 'SAEP',
-          icon: <DashboardIcon />,
+          icon: <WaterIcon />,
+          isChild: true
+        }, {
+          url: '/client/abonnees',
+          label: 'Abonnées',
+          icon: <ManageAccountsIcon />,
           isChild: true
         }
       ]
     }, {
       url: '/client/releve',
       label: 'Relevé',
-      icon: <DashboardIcon />
+      icon: <NoteAltIcon />
     }, {
       url: '/client/caisse',
       label: 'Encaissement',
-      icon: <DashboardIcon />
+      icon: <PointOfSaleIcon />
     }
   ]
 
