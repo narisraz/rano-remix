@@ -1,10 +1,17 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Typography } from "@mui/material";
 import { Client, User } from "@prisma/client";
-import { LoaderFunction, redirect, useLoaderData } from "remix";
+import { LoaderFunction, MetaFunction, redirect, useLoaderData } from "remix";
 import { getUsersByClientId, Role, roles } from "~/models/user.server";
 import { getUser } from "~/session.server";
 import UserList from "~/user/components/UserList";
+
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Utilisateurs'
+  }
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request)
