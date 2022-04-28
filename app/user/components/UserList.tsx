@@ -7,6 +7,7 @@ import { IconButton, Table, TableBody, TableHead } from "@mui/material";
 import { User } from "@prisma/client";
 import { useState } from "react";
 import { DeleteConfirmDialog } from "~/core/components/DeleteConfirmDialog";
+import { PaginatedTable } from "~/core/components/PaginatedTable";
 import { StyledTableCell } from "~/core/components/StyledTableCell";
 import { StyledTableRow } from "~/core/components/StyledTableRow";
 import { Role } from "~/models/user.server";
@@ -27,7 +28,7 @@ export default function UserList({ clientId, users, roles, baseUrl }: UserListPr
   }
 
   return (
-    <Table size="small" sx={{ width: "100%" }}>
+    <PaginatedTable count={users.length}>
       <DeleteConfirmDialog title={'Employé'} open={openDialog} close={closeDialog} action={`${baseUrl}/users/delete`}>
         <input type={"hidden"} name={"email"} value={selectedUser?.email} />
       </DeleteConfirmDialog>
@@ -68,6 +69,6 @@ export default function UserList({ clientId, users, roles, baseUrl }: UserListPr
           </StyledTableRow>
         ))}
       </TableBody>
-    </Table>
+    </PaginatedTable>
   )
 }
