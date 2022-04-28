@@ -22,9 +22,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const sites = await getSitesByClientId(user.clientId)
 
-  const addresses = sites.map(site => {
-    return getAddressById(site.addressId)
-  })
+  const addresses = await Promise.all(sites.map(async site => {
+    return await getAddressById(site.addressId)
+  }))
 
   return {
     sites,
