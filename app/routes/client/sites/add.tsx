@@ -1,4 +1,4 @@
-import { Address, Reservoir } from "@prisma/client"
+import { Address } from "@prisma/client"
 import { ActionFunction, json, LoaderFunction, MetaFunction, redirect } from "remix"
 import { validationError } from "remix-validated-form"
 import { ClientActionData } from "~/client/components/ClientForm"
@@ -36,11 +36,6 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
   return redirect(`/client/sites`)
-}
-
-interface LoaderData {
-  reservoirs: Reservoir[]
-  reservoirsAddresses: Address[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
