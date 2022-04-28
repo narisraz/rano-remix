@@ -39,6 +39,7 @@ export default function SiteList({ clientId, sites, addresses, baseUrl }: SiteLi
           <StyledTableRow>
             <StyledTableCell>Nom</StyledTableCell>
             <StyledTableCell align="right">Téléphones</StyledTableCell>
+            <StyledTableCell align="right">Région</StyledTableCell>
             <StyledTableCell align="right">Commune</StyledTableCell>
             <StyledTableCell align="center">Actions</StyledTableCell>
           </StyledTableRow>
@@ -48,6 +49,7 @@ export default function SiteList({ clientId, sites, addresses, baseUrl }: SiteLi
             <StyledTableRow key={site.id}>
               <StyledTableCell>{site.name}</StyledTableCell>
               <StyledTableCell align="right">{site.telephones}</StyledTableCell>
+              <StyledTableCell align="right">{findAddress(site)?.region ?? '-'}</StyledTableCell>
               <StyledTableCell align="right">{findAddress(site)?.commune ?? '-'}</StyledTableCell>
               <StyledTableCell align="center">
                 <IconButton color={"success"} href={`${baseUrl}/sites/${site.id}`}>
