@@ -4,7 +4,6 @@ import { deleteUserByEmail } from "~/models/user.server";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  console.log(JSON.stringify(formData))
   const email = formData.get("email") as string
   return deleteUserByEmail(email);
 };

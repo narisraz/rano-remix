@@ -57,7 +57,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const user = await getUser(request)
 
   if (!user)
-    return redirect("/client/login")
+    return redirect("/login")
 
   const client = await getClientById(user.clientId)
   return {
@@ -80,7 +80,7 @@ export function AddUserPage() {
   const { roles, client } = useLoaderData() as LoaderData
 
   return (
-    <UserForm title="Nouvel employé" roles={roles} client={client} action={`/client/users/add`} validator={CreateUserValidator} actionData={actionData} >
+    <UserForm title="Nouvel utilisateur" roles={roles} client={client} action={`/client/users/add`} validator={CreateUserValidator} actionData={actionData} >
       <Box sx={{ mb: 2 }}>
         <StyledFieldset>
           <legend>Authentification : </legend>

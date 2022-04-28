@@ -10,11 +10,11 @@ export const loader: LoaderFunction = async ({ request }) => {
     const user = await getUserById(userId)
     if (user) {
       switch (user.role) {
-        case ROLE.ADMIN_ROLE:
+        case ROLE.SUPER_ADMIN:
           return redirect("/admin/clients")
         case ROLE.CAISSIER:
           return redirect("/client/caisse")
-        case ROLE.GESTIONNAIRE:
+        case ROLE.ADMINISTRATOR:
           return redirect("/client/dashboard")
         case ROLE.RELEVEUR:
           return redirect("/client/releve")
@@ -24,5 +24,5 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
   }
 
-  return redirect("/client/login")
+  return redirect("/login")
 }

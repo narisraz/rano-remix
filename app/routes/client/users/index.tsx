@@ -10,7 +10,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request)
 
   if (!user)
-    return redirect("/client/login")
+    return redirect("/login")
 
   const users = await getUsersByClientId(user.clientId)
 
@@ -39,12 +39,12 @@ export default function UsersPage() {
       }}>
         <Typography variant="h6" gutterBottom>
           {users.length
-            ? `Liste des employés (${users.length})`
-            : `Vous n'avez pas encore enregistré d'employé`
+            ? `Liste des utilisateurs (${users.length})`
+            : `Vous n'avez pas encore enregistré d'utilisateur`
           }
         </Typography>
         <Button href={`/client/users/add`} startIcon={<AddIcon />} variant={"contained"}>
-          Nouvel employé
+          Nouvel utilisateur
         </Button>
       </Box>
       <UserList clientId={clientId} roles={roles} users={users} baseUrl="/client" />

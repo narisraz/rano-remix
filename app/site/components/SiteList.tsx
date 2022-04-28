@@ -30,7 +30,7 @@ export default function SiteList({ clientId, sites, addresses, baseUrl }: SiteLi
 
   return (
     <Table size="small" sx={{ width: "100%" }}>
-      <DeleteConfirmDialog title={'Employé'} open={openDialog} close={closeDialog} action={`${baseUrl}/users/delete`}>
+      <DeleteConfirmDialog title={'SAEP'} open={openDialog} close={closeDialog} action={`${baseUrl}/site/delete`}>
         <input type={"hidden"} name={"id"} value={selectedSite?.id} />
       </DeleteConfirmDialog>
       <TableHead>

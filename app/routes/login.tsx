@@ -17,7 +17,6 @@ export interface LoginActionData {
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const fieldValues = await LoginValidator.validate(formData);
-  console.log(fieldValues)
   if (fieldValues.error) return validationError(fieldValues.error);
 
   const { email, password } = fieldValues.data

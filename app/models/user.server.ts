@@ -7,8 +7,8 @@ import { addAddress, updateAddress } from "./address.server";
 export type { User } from "@prisma/client";
 
 export enum ROLE {
-  ADMIN_ROLE = -1,
-  GESTIONNAIRE,
+  SUPER_ADMIN = -1,
+  ADMINISTRATOR,
   RELEVEUR,
   CAISSIER
 }
@@ -19,8 +19,8 @@ export interface Role {
 }
 
 export const roles: Role[] = [
-  { id: ROLE.ADMIN_ROLE, label: 'Administrateur' },
-  { id: ROLE.GESTIONNAIRE, label: 'Gestionnaire' },
+  { id: ROLE.SUPER_ADMIN, label: 'Super Administrateur' },
+  { id: ROLE.ADMINISTRATOR, label: 'Administrateur' },
   { id: ROLE.RELEVEUR, label: 'Releveur' },
   { id: ROLE.CAISSIER, label: 'Caissier' }
 ]
