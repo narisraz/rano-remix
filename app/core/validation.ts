@@ -100,6 +100,19 @@ export const UpdateUserValidator = withZod(
     role
   }))
 
+export const AbonneeValidator = withZod(
+  z.object({
+    name,
+    firstName,
+    telephones,
+    region,
+    commune,
+    fokontany,
+    lot,
+    dateContract: z.string()
+  })
+)
+
 export const ResetPasswordValidator = z
   .object({
     password: password,
