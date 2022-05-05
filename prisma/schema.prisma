@@ -84,11 +84,12 @@ model Site {
 }
 
 model Abonnee {
-  id           String   @id @default(cuid())
-  name         String
-  firstName    String?
-  contractDate DateTime
-  telephones   String?
+  id            String   @id @default(cuid())
+  name          String
+  firstName     String?
+  contractDate  DateTime
+  telephones    String?
+  abonneeTypeId Int      @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -97,16 +98,8 @@ model Abonnee {
   siteId         String
   address        Address          @relation(fields: [addressId], references: [id])
   addressId      String
-  abonneeType    AbonneeType      @relation(fields: [abonneeTypeId], references: [id])
-  abonneeTypeId  String
   AbonneeAccount AbonneeAccount[]
   Consommation   Consommation[]
-}
-
-model AbonneeType {
-  id      String    @id @default(cuid())
-  label   String
-  Abonnee Abonnee[]
 }
 
 model AbonneeAccount {

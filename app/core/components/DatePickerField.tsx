@@ -1,31 +1,38 @@
 import { TextField } from "@mui/material";
-import { PropsWithoutRef } from "react";
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import moment from "moment";
+import { useState } from "react";
 import { useField } from "remix-validated-form";
 
 interface DatePickerFieldProps {
   label: string
   name: string
-  outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
+  initialValue?: string
 }
 
-export const DatePickerField = ({ outerProps, name, label }: DatePickerFieldProps) => {
+export const DatePickerField = ({ name, label, initialValue }: DatePickerFieldProps) => {
   const { error, getInputProps } = useField(name!);
+  const now = moment().format("DD/MM/YYYY")
+  const [value, setValue] = useState<Date | null>(
+    new Date(initialValue ?? now),
+  );
+
+  const handleChange = (newValue: Date | null) => {
+    setValue(newValue);
+  };
 
   return (
-    <div {...outerProps}>
-      <TextField
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <DesktopDatePicker
         label={label}
-        type="date"
-        sx={{ width: 220 }}
-        error={error != undefined}
-        helperText={error}
-        margin={"dense"}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        {...getInputProps({ id: name })}
+        inputFormat="DD/MM/YYYY"
+        value={value}
+        onChange={handleChange}
+        renderInput={(params) => <TextField {...params} {...getInputProps} margin="dense" />}
       />
-    </div>
+    </LocalizationProvider>
   )
 }
 

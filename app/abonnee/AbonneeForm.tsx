@@ -3,10 +3,14 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import { Abonnee, Address, Site } from "@prisma/client";
+import { Abonnee, Address } from "@prisma/client";
 import React from "react";
 import { ValidatedForm, Validator } from "remix-validated-form";
+import DatePickerField from "~/core/components/DatePickerField";
+import { LabeledSelectField } from "~/core/components/LabeledSelectField";
 import LabeledTextField from "~/core/components/LabeledTextField";
+import { StyledFieldset } from "~/core/components/StyledFieldset";
+import { AbonneeType } from "~/models/abonnee.server";
 
 
 export interface AbonneeFormProps {
@@ -17,6 +21,7 @@ export interface AbonneeFormProps {
   action: string
   validator: Validator<{ [x: string]: any; }>
   actionData?: UserActionData
+  abonneeTypes: AbonneeType[]
 }
 
 export interface UserActionData {
@@ -25,7 +30,7 @@ export interface UserActionData {
   };
 }
 
-export function AbonneeForm({ children, title, abonnee, validator, address, action, actionData }: AbonneeFormProps) {
+export function AbonneeForm({ children, title, abonnee, validator, address, action, abonneeTypes, actionData }: AbonneeFormProps) {
 
   return (
     <Box>
@@ -47,12 +52,26 @@ export function AbonneeForm({ children, title, abonnee, validator, address, acti
       >
         {children}
         <Box sx={{ mb: 2 }}>
-          <LabeledTextField label="Nom" name="name" placeholder="name" />
-          <LabeledTextField label="Prénom" name="firstName" placeholder="firstName" />
-          <LabeledTextField label="Téléphones" name="telephones" placeholder="telephones" />
-          <LabeledTextField label="Région" name="region" placeholder="Région" />
-          <LabeledTextField label="Commune" name="commune" placeholder="Commune" />
-          <LabeledTextField label="Lot" name="lot" placeholder="Lot" />
+          <StyledFieldset>
+            <legend>Informations personnels : </legend>
+            <LabeledTextField label="Nom" name="name" placeholder="name" />
+            <LabeledTextField label="Prénom" name="firstName" placeholder="firstName" />
+            <LabeledTextField label="Téléphones" name="telephones" placeholder="telephones" />
+          </StyledFieldset>
+          <StyledFieldset>
+            <legend>Adresse : </legend>
+            <LabeledTextField label="Région" name="region" placeholder="Région" />
+            <LabeledTextField label="Commune" name="commune" placeholder="Commune" />
+            <LabeledTextField label="Fokontany" name="fokontany" placeholder="Fokontany" />
+            <LabeledTextField label="Lot" name="lot" placeholder="Lot" />
+          </StyledFieldset>
+          <StyledFieldset>
+            <legend>Abonnement : </legend>
+            <Box sx={{ mb: 2 }}>
+              <DatePickerField label="Date d'abonnement" name="contractDate" />
+            </Box>
+            <LabeledSelectField label="Type de contrat" items={abonneeTypes.map(type => ({ id: type.id, label: type.label }))} initialValue={abonneeTypes[0].id} />
+          </StyledFieldset>
         </Box>
         <Button variant={"contained"} type={"submit"}>Sauvegarder</Button>
       </ValidatedForm>

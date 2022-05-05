@@ -81,14 +81,12 @@ export function AddUserPage() {
 
   return (
     <UserForm title="Nouvel utilisateur" roles={roles} client={client} action={`/client/users/add`} validator={CreateUserValidator} actionData={actionData} >
-      <Box sx={{ mb: 2 }}>
-        <StyledFieldset>
-          <legend>Authentification : </legend>
-          <LabeledTextField name="email" label="Email" placeholder="Email" />
-          <LabeledTextField name="password" label="Mot de passe" placeholder="Mot de passe" type="password" />
-          <LabeledTextField name="passwordConfirmation" label="Confirmer le mot de passe" placeholder="Confirmer le mot de passe" type="password" />
-        </StyledFieldset>
-      </Box>
+      <StyledFieldset>
+        <legend>Authentification : </legend>
+        <LabeledTextField name="email" label="Email" placeholder="Email" />
+        <LabeledTextField name="password" label="Mot de passe" placeholder="Mot de passe" type="password" />
+        <LabeledTextField name="passwordConfirmation" label="Confirmer le mot de passe" placeholder="Confirmer le mot de passe" type="password" />
+      </StyledFieldset>
     </UserForm>
   )
 }

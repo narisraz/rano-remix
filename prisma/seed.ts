@@ -43,6 +43,21 @@ async function seed() {
     }
   })
 
+  const address = await prisma.address.create({
+    data: {
+      region: 'Analamanga',
+      commune: 'Sabotsy Namehana'
+    }
+  })
+
+  const site = await prisma.site.create({
+    data: {
+      name: 'SAEP Sabotsy Namehana',
+      clientId: client.id,
+      addressId: address.id
+    }
+  })
+
   console.log(`Database has been seeded. 🌱`);
 }
 

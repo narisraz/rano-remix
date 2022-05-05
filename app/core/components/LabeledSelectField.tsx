@@ -4,14 +4,14 @@ import { useState } from "react";
 
 
 export interface LabeledSelectFieldItem {
-  id: string
+  id: any
   label: string
 }
 
 interface LabeledSelectProps extends SelectProps<string> {
   label: string
   items: LabeledSelectFieldItem[]
-  initialValue: string
+  initialValue: any
 }
 
 export const LabeledSelectField = ({ label, items, initialValue, ...props }: LabeledSelectProps) => {

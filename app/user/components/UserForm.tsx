@@ -63,27 +63,23 @@ export function UserForm({ children, title, client, user, validator, address, ro
           </Alert>
         </Box>}
         {children}
-        <Box sx={{ mb: 2 }}>
-          <StyledFieldset>
-            <legend>Informations personnels : </legend>
-            <LabeledTextField label="Nom" name="name" placeholder="name" />
-            <LabeledTextField label="Prénom" name="firstName" placeholder="firstName" />
-            <LabeledTextField label="Téléphones" name="telephones" placeholder="telephones" />
-          </StyledFieldset>
-        </Box>
-        <Box sx={{ mb: 2 }}>
-          <StyledFieldset>
-            <legend>Adresse : </legend>
-            <LabeledTextField label="Région" name="region" placeholder="region" />
-            <LabeledTextField label="Commune" name="commune" placeholder="commune" />
-            <LabeledTextField label="Fokontany" name="fokontany" placeholder="fokontany" />
-            <LabeledTextField label="Lot" name="lot" placeholder="lot" />
-          </StyledFieldset>
-        </Box>
-        <Box sx={{ mb: 2 }}>
+        <StyledFieldset>
+          <legend>Informations personnels : </legend>
+          <LabeledTextField label="Nom" name="name" placeholder="name" />
+          <LabeledTextField label="Prénom" name="firstName" placeholder="firstName" />
+          <LabeledTextField label="Téléphones" name="telephones" placeholder="telephones" />
+        </StyledFieldset>
+        <StyledFieldset>
+          <legend>Adresse : </legend>
+          <LabeledTextField label="Région" name="region" placeholder="region" />
+          <LabeledTextField label="Commune" name="commune" placeholder="commune" />
+          <LabeledTextField label="Fokontany" name="fokontany" placeholder="fokontany" />
+          <LabeledTextField label="Lot" name="lot" placeholder="lot" />
+        </StyledFieldset>
+        <Box sx={{ mt: '1em' }}>
           <LabeledSelectField label="Rôle" name="role" items={roles.map(role => ({ id: String(role.id), label: role.label }))} initialValue={`${user?.role ?? 0}`} />
         </Box>
-        <Box sx={{ mb: 2 }}>
+        <Box sx={{ mt: '1em' }}>
           <LabeledSwitch label="Active" initialValue={user?.active ?? false} name="active" />
         </Box>
         <Button variant={"contained"} type={"submit"}>Sauvegarder</Button>

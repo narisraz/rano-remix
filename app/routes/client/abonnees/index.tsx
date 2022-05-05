@@ -1,11 +1,11 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Typography } from "@mui/material";
 import { Abonnee, Address, Site } from "@prisma/client";
-import { createCookie, LoaderFunction, MetaFunction, useLoaderData } from "remix";
+import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import AbonneeList from '~/abonnee/AbonneeList';
 import { getAbonneesBySiteId } from '~/models/abonnee.server';
 import { getAddressById } from '~/models/address.server';
-import { getSiteById } from '~/models/site.server';
+import { getSiteById, getSiteIdFromRequest } from '~/models/site.server';
 import { getUser } from "~/session.server";
 import { pageNotFound } from '~/utils';
 
@@ -22,9 +22,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!user)
     throw pageNotFound()
 
-  const cookie = createCookie("saep")
-  const cookieHeader = request.headers.get("Cookie")
-  const selectedSAEPId = await cookie.parse(cookieHeader)
+  const selectedSAEPId = await getSiteIdFromRequest(request)
+
+  if (!selectedSAEPId) {
+    return {}
+  }
 
   const site = await getSiteById(selectedSAEPId)
 
@@ -56,22 +58,31 @@ export default function AbonneesPage() {
 
   return (
     <>
-      <Box sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        mb: 2
-      }}>
-        <Typography variant="h6" gutterBottom>
-          {abonnees.length
-            ? `Liste des abonnées (${abonnees.length}) - ${site.name}`
-            : `Vous n'avez pas encore enregistré d'abonnée`
-          }
+      {!site &&
+        <Typography>
+          Veuillez choisir un SAEP avant de poursuivre
         </Typography>
-        <Button href={`/client/abonnees/add`} startIcon={<AddIcon />} variant={"contained"}>
-          Nouvelle abonnée
-        </Button>
-      </Box>
-      <AbonneeList site={site} abonnees={abonnees} addresses={addresses} baseUrl="/client" />
+      }
+      {site &&
+        <>
+          <Box sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mb: 2
+          }}>
+            <Typography variant="h6" gutterBottom>
+              {abonnees.length
+                ? `Liste des abonnées (${abonnees.length}) - ${site.name}`
+                : `Vous n'avez pas encore enregistré d'abonnée`
+              }
+            </Typography>
+            <Button href={`/client/abonnees/add`} startIcon={<AddIcon />} variant={"contained"}>
+              Nouvelle abonnée
+            </Button>
+          </Box>
+          <AbonneeList site={site} abonnees={abonnees} addresses={addresses} baseUrl="/client" />
+        </>
+      }
     </>
   )
 }

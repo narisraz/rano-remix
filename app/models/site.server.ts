@@ -1,4 +1,5 @@
 import { Address, Client, Site } from "@prisma/client";
+import { createCookie } from "remix";
 import { prisma } from "~/db.server";
 import { addAddress, updateAddress } from "./address.server";
 
@@ -78,4 +79,10 @@ export async function updateSite(
   return {
     site
   }
+}
+
+export const getSiteIdFromRequest = async (request: Request) => {
+  const cookie = createCookie("saep")
+  const cookieHeader = request.headers.get("Cookie")
+  return await cookie.parse(cookieHeader)
 }

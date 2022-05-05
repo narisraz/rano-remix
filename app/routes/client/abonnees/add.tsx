@@ -1,9 +1,10 @@
-import { ActionFunction, json, LoaderFunction, MetaFunction, redirect } from "remix"
+import { ActionFunction, json, LoaderFunction, MetaFunction, redirect, useLoaderData } from "remix"
 import { validationError } from "remix-validated-form"
 import { AbonneeForm } from "~/abonnee/AbonneeForm"
 import { ClientActionData } from "~/client/components/ClientForm"
 import { AbonneeValidator } from "~/core/validation"
-import { createSite } from "~/models/site.server"
+import { abonneeTypes, createAbonnee } from "~/models/abonnee.server"
+import { getSiteIdFromRequest } from "~/models/site.server"
 import { getUser } from "~/session.server"
 import { pageNotFound } from "~/utils"
 
@@ -18,7 +19,9 @@ export const action: ActionFunction = async ({ request }) => {
   const telephones = formData.get("telephones") as string
   const region = formData.get("region") as string
   const commune = formData.get("commune") as string
+  const fokontany = formData.get("fokontany") as string
   const lot = formData.get("lot") as string
+  const abonneeType = Number(formData.get("abonneeType") as string)
   const dateContract = formData.get("dateContract") as string
 
   const user = await getUser(request)
@@ -27,7 +30,9 @@ export const action: ActionFunction = async ({ request }) => {
     throw pageNotFound()
   }
 
-  const result = await createSite(user.clientId, name, telephones, region, commune)
+  const selectedSAEPId = await getSiteIdFromRequest(request)
+
+  const result = await createAbonnee(name, firstName, telephones, new Date(dateContract), selectedSAEPId, region, commune, fokontany, lot, abonneeType)
 
   if (result.error) {
     return json<ClientActionData>(
@@ -47,7 +52,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     throw pageNotFound
   }
 
-  return {}
+  return { abonneeTypes }
 };
 
 export const meta: MetaFunction = () => {
@@ -57,8 +62,10 @@ export const meta: MetaFunction = () => {
 }
 
 export function addAbonnee() {
+  const { abonneeTypes } = useLoaderData()
+
   return (
-    <AbonneeForm title="Nouvelle abonnée" action="/client/abonnees/add" validator={AbonneeValidator} />
+    <AbonneeForm title="Nouvelle abonnée" action="/client/abonnees/add" validator={AbonneeValidator} abonneeTypes={abonneeTypes} />
   )
 }
 
