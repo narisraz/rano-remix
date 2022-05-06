@@ -12,7 +12,7 @@ export const SubmitButton = ({ children, fullWidth }: ButtonProps) => {
       type={"submit"}
       variant={"contained"}
       disabled={disabled}
-      fullWidth={fullWidth ?? true}
+      fullWidth={fullWidth ?? false}
     >
       {children}
     </Button>

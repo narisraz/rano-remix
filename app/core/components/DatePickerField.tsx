@@ -30,7 +30,7 @@ export const DatePickerField = ({ name, label, initialValue }: DatePickerFieldPr
         inputFormat="DD/MM/YYYY"
         value={value}
         onChange={handleChange}
-        renderInput={(params) => <TextField {...params} {...getInputProps} margin="dense" />}
+        renderInput={(params) => <TextField name={name} {...params} {...getInputProps} margin="dense" />}
       />
     </LocalizationProvider>
   )

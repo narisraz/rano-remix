@@ -10,6 +10,7 @@ import DatePickerField from "~/core/components/DatePickerField";
 import { LabeledSelectField } from "~/core/components/LabeledSelectField";
 import LabeledTextField from "~/core/components/LabeledTextField";
 import { StyledFieldset } from "~/core/components/StyledFieldset";
+import { SubmitButton } from "~/core/components/SubmitButton";
 import { AbonneeType } from "~/models/abonnee.server";
 
 
@@ -47,7 +48,9 @@ export function AbonneeForm({ children, title, abonnee, validator, address, acti
           telephones: abonnee?.telephones ?? '',
           region: address?.region ?? '',
           commune: address?.commune ?? '',
-          lot: address?.lot ?? ''
+          lot: address?.lot ?? '',
+          abonneeType: abonnee?.abonneeTypeId ?? 0,
+          dateContract: abonnee?.contractDate
         }}
       >
         {children}
@@ -68,12 +71,12 @@ export function AbonneeForm({ children, title, abonnee, validator, address, acti
           <StyledFieldset>
             <legend>Abonnement : </legend>
             <Box sx={{ mb: 2 }}>
-              <DatePickerField label="Date d'abonnement" name="contractDate" />
+              <DatePickerField label="Date d'abonnement" name="dateContract" initialValue={abonnee?.contractDate ?? ""} />
             </Box>
-            <LabeledSelectField label="Type de contrat" items={abonneeTypes.map(type => ({ id: type.id, label: type.label }))} initialValue={abonneeTypes[0].id} />
+            <LabeledSelectField name="abonneeType" label="Type de contrat" items={abonneeTypes.map(type => ({ id: type.id, label: type.label }))} initialValue={abonneeTypes[0].id} />
           </StyledFieldset>
         </Box>
-        <Button variant={"contained"} type={"submit"}>Sauvegarder</Button>
+        <SubmitButton>Sauvegarder</SubmitButton>
       </ValidatedForm>
     </Box>
   )

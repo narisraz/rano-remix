@@ -19,7 +19,7 @@ interface AbonneeListProps {
 
 export default function AbonneeList({ abonnees, site, addresses, baseUrl }: AbonneeListProps) {
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedSite, setSelectedSite] = useState<Site>()
+  const [selectedAbonnee, setSelectedAbonnee] = useState<Abonnee>()
 
   const closeDialog = () => {
     setOpenDialog(false)
@@ -32,8 +32,8 @@ export default function AbonneeList({ abonnees, site, addresses, baseUrl }: Abon
   return (
     <>
       <PaginatedTable count={abonnees.length}>
-        <DeleteConfirmDialog title={'SAEP'} open={openDialog} close={closeDialog} action={`${baseUrl}/site/delete`}>
-          <input type={"hidden"} name={"id"} value={selectedSite?.id} />
+        <DeleteConfirmDialog title={'Abonnée'} open={openDialog} close={closeDialog} action={`${baseUrl}/abonnees/delete`}>
+          <input type={"hidden"} name={"id"} value={selectedAbonnee?.id} />
         </DeleteConfirmDialog>
         <TableHead>
           <StyledTableRow>
@@ -54,15 +54,15 @@ export default function AbonneeList({ abonnees, site, addresses, baseUrl }: Abon
               <StyledTableCell align="right">{findAddress(abonnee)?.commune ?? '-'}</StyledTableCell>
               <StyledTableCell align="right">{findAddress(abonnee)?.lot ?? '-'}</StyledTableCell>
               <StyledTableCell align="center">
-                <IconButton color={"success"} href={`${baseUrl}/sites/${site.id}`}>
+                <IconButton color={"success"} href={`${baseUrl}/abonnees/${abonnee.id}`}>
                   <VisibilityIcon />
                 </IconButton>
-                <IconButton color={"warning"} href={`${baseUrl}/sites/${site.id}/update`}>
+                <IconButton color={"warning"} href={`${baseUrl}/abonnees/${abonnee.id}/update`}>
                   <ModeEditIcon />
                 </IconButton>
                 <IconButton color={"error"} onClick={() => {
                   setOpenDialog(true)
-                  setSelectedSite(site)
+                  setSelectedAbonnee(abonnee)
                 }}>
                   <DeleteIcon />
                 </IconButton>

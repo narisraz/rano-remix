@@ -108,8 +108,7 @@ export const AbonneeValidator = withZod(
     region,
     commune,
     fokontany,
-    lot,
-    dateContract: z.string()
+    lot
   })
 )
 

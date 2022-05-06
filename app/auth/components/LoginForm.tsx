@@ -6,7 +6,7 @@ import { LabeledCheckbox } from '~/core/components/LabeledCheckbox';
 import LabeledTextField from '~/core/components/LabeledTextField';
 import { StyledLink } from '~/core/components/StyledLink';
 import { SubmitButton } from '~/core/components/SubmitButton';
-import { LoginActionData } from '~/routes/admin/login';
+import { LoginActionData } from '~/routes/login';
 
 
 interface LoginFormProps {
@@ -71,7 +71,7 @@ export default function LoginForm({ redirectTo, actionData }: LoginFormProps) {
                 marginTop: "1em",
               }}
             >
-              <SubmitButton>Se connecter</SubmitButton>
+              <SubmitButton fullWidth>Se connecter</SubmitButton>
             </Box>
           </ValidatedForm>
         </CardContent>
