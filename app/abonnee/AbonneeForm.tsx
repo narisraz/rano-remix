@@ -1,6 +1,3 @@
-import {
-  Button
-} from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { Abonnee, Address } from "@prisma/client";
@@ -48,6 +45,7 @@ export function AbonneeForm({ children, title, abonnee, validator, address, acti
           telephones: abonnee?.telephones ?? '',
           region: address?.region ?? '',
           commune: address?.commune ?? '',
+          fokontany: address?.fokontany ?? '',
           lot: address?.lot ?? '',
           abonneeType: abonnee?.abonneeTypeId ?? 0,
           dateContract: abonnee?.contractDate
@@ -71,7 +69,7 @@ export function AbonneeForm({ children, title, abonnee, validator, address, acti
           <StyledFieldset>
             <legend>Abonnement : </legend>
             <Box sx={{ mb: 2 }}>
-              <DatePickerField label="Date d'abonnement" name="dateContract" initialValue={abonnee?.contractDate ?? ""} />
+              <DatePickerField label="Date d'abonnement" name="dateContract" initialValue={`${abonnee?.contractDate ?? ""}`} />
             </Box>
             <LabeledSelectField name="abonneeType" label="Type de contrat" items={abonneeTypes.map(type => ({ id: type.id, label: type.label }))} initialValue={abonneeTypes[0].id} />
           </StyledFieldset>

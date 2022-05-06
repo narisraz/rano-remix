@@ -1,9 +1,11 @@
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import PeopleIcon from '@mui/icons-material/People';
@@ -27,7 +29,7 @@ interface MenuItem {
   url?: string
   icon: any
   children?: MenuItem[]
-  isChild?: boolean
+  level: number
 }
 
 interface LoaderData {
@@ -94,36 +96,52 @@ export const ClientLayout = () => {
     {
       url: '/client/dashboard',
       label: 'Tableau de bord',
-      icon: <DashboardIcon />
+      icon: <DashboardIcon />,
+      level: 0
     }, {
       label: 'Administration',
       icon: <AdminPanelSettingsIcon />,
+      level: 0,
       children: [
         {
           url: '/client/users',
           label: 'Utilisateurs',
           icon: <PeopleIcon />,
-          isChild: true
+          level: 1
         }, {
           url: '/client/sites',
           label: 'SAEP',
           icon: <WaterIcon />,
-          isChild: true
+          level: 1
+        }, {
+          label: 'Facturation',
+          icon: <AccountBalanceIcon />,
+          level: 1,
+          children: [
+            {
+              url: '/client/tranches',
+              label: 'Par tranches',
+              icon: <FormatListNumberedIcon />,
+              level: 2
+            }
+          ]
         }, {
           url: '/client/abonnees',
           label: 'Abonnées',
           icon: <ManageAccountsIcon />,
-          isChild: true
+          level: 1
         }
       ]
     }, {
       url: '/client/releve',
       label: 'Relevé',
-      icon: <NoteAltIcon />
+      icon: <NoteAltIcon />,
+      level: 0
     }, {
       url: '/client/caisse',
       label: 'Encaissement',
-      icon: <PointOfSaleIcon />
+      icon: <PointOfSaleIcon />,
+      level: 0
     }
   ]
 
@@ -145,7 +163,7 @@ export const ClientLayout = () => {
 
     return (
       <>
-        <ListItemButton key={item?.url ?? ''} sx={[(item.isChild ?? false) && { pl: 4 }]} component="a" href={item.url} selected={isItemSelected(item?.url ?? '$')} onClick={() => setOpen(!open)}>
+        <ListItemButton key={item?.url ?? ''} sx={[(item.level > 0) && { pl: item.level * 4 }]} component="a" href={item.url} selected={isItemSelected(item?.url ?? '$')} onClick={() => setOpen(!open)}>
           <ListItemIcon>
             {item.icon}
           </ListItemIcon>

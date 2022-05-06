@@ -32,7 +32,7 @@
     "/public/build"
   ],
   "dependencies": {
-    "@date-io/moment": "^2.13.1",
+    "@date-io/moment": "^2.13.2",
     "@emotion/cache": "^11.7.1",
     "@emotion/react": "^11.8.2",
     "@emotion/server": "^11.4.0",

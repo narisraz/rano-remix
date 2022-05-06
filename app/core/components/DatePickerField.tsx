@@ -24,10 +24,9 @@ export const DatePickerField = ({ name, label, initialValue }: DatePickerFieldPr
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
+    <LocalizationProvider dateAdapter={AdapterMoment} locale={"fr"}>
       <DesktopDatePicker
         label={label}
-        inputFormat="DD/MM/YYYY"
         value={value}
         onChange={handleChange}
         renderInput={(params) => <TextField name={name} {...params} {...getInputProps} margin="dense" />}
