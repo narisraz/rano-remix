@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { IconButton, Table, TableBody, TableHead } from "@mui/material";
+import { IconButton, TableBody, TableHead } from "@mui/material";
 import { User } from "@prisma/client";
 import { useState } from "react";
 import { DeleteConfirmDialog } from "~/core/components/DeleteConfirmDialog";
@@ -30,7 +30,7 @@ export default function UserList({ clientId, users, roles, baseUrl }: UserListPr
   return (
     <PaginatedTable count={users.length}>
       <DeleteConfirmDialog title={'Employé'} open={openDialog} close={closeDialog} action={`${baseUrl}/users/delete`}>
-        <input type={"hidden"} name={"email"} value={selectedUser?.email} />
+        <input type={"hidden"} name={"id"} value={selectedUser?.id} />
       </DeleteConfirmDialog>
       <TableHead>
         <StyledTableRow>

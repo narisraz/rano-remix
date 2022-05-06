@@ -1,8 +1,8 @@
 import { Address, Client, Password, Prisma, User } from "@prisma/client";
 import bcrypt from "bcryptjs";
-
 import { prisma } from "~/db.server";
 import { addAddress, updateAddress } from "./address.server";
+
 
 export type { User } from "@prisma/client";
 
@@ -146,6 +146,12 @@ export async function createUser(
 
 export async function deleteUserByEmail(email: User["email"]) {
   return prisma.user.delete({ where: { email } });
+}
+
+export const deleteUser = async (id: User["id"]) => {
+  return prisma.user.delete({
+    where: { id }
+  })
 }
 
 export async function verifyLogin(

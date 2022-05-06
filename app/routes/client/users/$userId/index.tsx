@@ -70,7 +70,7 @@ export function userInfo() {
           <TableBody>
             <TableRow>
               <TableCell sx={{ fontWeight: "bold" }}>Rôle</TableCell>
-              <TableCell>{roles[user?.role ?? 0].label}</TableCell>
+              <TableCell>{roles.find(e => e.id == user.role)?.label}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell sx={{ fontWeight: "bold" }}>Nom</TableCell>

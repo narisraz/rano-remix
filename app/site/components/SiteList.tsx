@@ -1,7 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { IconButton, Table, TableBody, TableHead, TablePagination } from "@mui/material";
+import { IconButton, TableBody, TableHead } from "@mui/material";
 import { Address, Site } from "@prisma/client";
 import { useState } from "react";
 import { DeleteConfirmDialog } from "~/core/components/DeleteConfirmDialog";
@@ -32,7 +32,7 @@ export default function SiteList({ clientId, sites, addresses, baseUrl }: SiteLi
   return (
     <>
       <PaginatedTable count={sites.length}>
-        <DeleteConfirmDialog title={'SAEP'} open={openDialog} close={closeDialog} action={`${baseUrl}/site/delete`}>
+        <DeleteConfirmDialog title={'SAEP'} open={openDialog} close={closeDialog} action={`${baseUrl}/sites/delete`}>
           <input type={"hidden"} name={"id"} value={selectedSite?.id} />
         </DeleteConfirmDialog>
         <TableHead>

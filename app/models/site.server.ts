@@ -86,3 +86,9 @@ export const getSiteIdFromRequest = async (request: Request) => {
   const cookieHeader = request.headers.get("Cookie")
   return await cookie.parse(cookieHeader)
 }
+
+export const deleteSite = async (id: Site["id"]) => {
+  return prisma.site.delete({
+    where: { id }
+  })
+}
