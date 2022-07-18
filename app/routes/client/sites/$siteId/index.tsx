@@ -5,7 +5,6 @@ import { LoaderFunction, MetaFunction, useLoaderData } from "remix"
 import { getAddressById } from "~/models/address.server"
 import { getClientById } from "~/models/client.server"
 import { getSiteById } from "~/models/site.server"
-import { roles } from "~/models/user.server"
 import { pageNotFound } from "~/utils"
 
 
@@ -46,7 +45,7 @@ export const meta: MetaFunction = () => {
   }
 }
 
-export function saepInfo() {
+export function SaepInfo() {
   const { client, site, address } = useLoaderData() as LoaderData
 
   return (
@@ -86,4 +85,4 @@ export function saepInfo() {
   )
 }
 
-export default saepInfo
+export default SaepInfo

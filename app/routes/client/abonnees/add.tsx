@@ -61,7 +61,7 @@ export const meta: MetaFunction = () => {
   }
 }
 
-export function addAbonnee() {
+export function AddAbonnee() {
   const { abonneeTypes } = useLoaderData()
 
   return (
@@ -69,4 +69,4 @@ export function addAbonnee() {
   )
 }
 
-export default addAbonnee
+export default AddAbonnee

@@ -13,7 +13,7 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import WaterIcon from '@mui/icons-material/Water';
 import { Box, Collapse, Divider, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { Site, User } from '@prisma/client';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ActionFunction, createCookie, LoaderFunction, Outlet, redirect, useFetcher, useLoaderData, useLocation } from "remix";
 import theme from 'src/theme';
 import { AppBar } from '~/core/components/AppBar';
@@ -145,7 +145,7 @@ export const ClientLayout = () => {
     }
   ]
 
-  const renderMenuItem = (item: MenuItem, index: number) => {
+  const RenderMenuItem = (item: MenuItem, index: number) => {
     const [open, setOpen] = useState(false)
     const addExpandIcon = () => {
       if (item.children) {
@@ -173,7 +173,7 @@ export const ClientLayout = () => {
         {item.children &&
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {item.children.map(renderMenuItem)}
+              {item.children.map(RenderMenuItem)}
             </List>
           </Collapse>
         }
@@ -194,7 +194,7 @@ export const ClientLayout = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {menu.map(renderMenuItem)}
+          {menu.map(RenderMenuItem)}
         </List>
         <Divider />
       </AppDrawer>

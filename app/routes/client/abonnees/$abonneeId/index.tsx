@@ -42,7 +42,7 @@ export const meta: MetaFunction = () => {
   }
 }
 
-export function abonneeInfo() {
+export function AbonneeInfo() {
   const { abonnee, contractDate, address, abonneeTypes } = useLoaderData() as LoaderData
 
   return (
@@ -102,4 +102,4 @@ export function abonneeInfo() {
   )
 }
 
-export default abonneeInfo
+export default AbonneeInfo

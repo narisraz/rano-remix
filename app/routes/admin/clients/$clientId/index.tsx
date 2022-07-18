@@ -39,7 +39,7 @@ export const meta: MetaFunction = () => {
   }
 }
 
-export function clientInfo() {
+export function ClientInfo() {
   const { client, address } = useLoaderData() as LoaderData
 
   return (
@@ -91,4 +91,4 @@ export function clientInfo() {
   )
 }
 
-export default clientInfo
+export default ClientInfo
